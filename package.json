@@ -1,0 +1,23 @@
+{
+  "name": "image-processing-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --config .prettierrc '.\\src\\**\\*.js' --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TarekMostafa404/Image-Processing-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TarekMostafa404/Image-Processing-API/issues"
+  },
+  "homepage": "https://github.com/TarekMostafa404/Image-Processing-API#readme",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
+}
