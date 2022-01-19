@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "src/index.ts",
+    "start": "nodemon src/index.ts",
     "build": "npx tsc",
-    "lint": "eslint 'nindex.ts'",
+    "lint": "eslint 'index.ts'",
     "prettier": "prettier --config .prettierrc \"src/**/*.ts\" --write",
-    "jasmine": "jasmine"
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run jasmine"
   },
   "repository": {
     "type": "git",
@@ -22,15 +23,18 @@
   },
   "homepage": "https://github.com/TarekMostafa404/Image-Processing-API#readme",
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/jasmine": "^3.10.3",
+    "@types/jest": "^27.4.0",
     "@types/node": "^17.0.10",
+    "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
-    "prettier": "^2.5.1",
+    "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },
@@ -38,6 +42,7 @@
     "express": "^4.17.2",
     "jasmine": "^4.0.2",
     "jasmine-spec-reporter": "^7.0.0",
-    "sharp": "^0.29.3"
+    "sharp": "^0.29.3",
+    "supertest": "^6.2.2"
   }
 }
