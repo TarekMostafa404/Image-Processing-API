@@ -5,7 +5,7 @@ import route2 from "./routes/route2";
 const app = express();
 const port = 3000;
 
-app.use('/1', route1);
+app.use('/api/main', route1);
 app.use('/2', route2);
 
 // const router = express.Router();
