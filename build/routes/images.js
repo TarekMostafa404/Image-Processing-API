@@ -31,4 +31,5 @@ routes.get('/image', (req, res) => {
         });
     }
 });
-exports.default = routes;
+const _default = routes;
+export { _default as default };
