@@ -8,3 +8,5 @@ app.use('/', routes);
 app.listen(port, ()=> {
   console.log(`server is running at http://localhost:${port}/image`);
 });
+
+export default express;
