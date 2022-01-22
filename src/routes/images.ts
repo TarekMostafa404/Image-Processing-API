@@ -3,6 +3,7 @@ import sharp from "sharp";
 const routes = express.Router();
 import fs from "fs";
 import { readFile } from "fs";
+import ImageService from "../services/ImageService";
 
 const fullImagesDir = `${__dirname}/images/`;
 const resizedImagesDir = `${__dirname}/images/resized/`;
@@ -12,26 +13,17 @@ routes.get("/image", (req, res) => {
   const fullImagePath = `${fullImagesDir}${imageName}`;
   const resizedImagePath = `${resizedImagesDir}${imageName}`;
 
-  /*
-1. check if image exist in image folder
-1.2 if image not found throw image not found
-2. check if image exist in resized folder 
-2.1 if not => resize image
-3. return resized image
-*/
-// res.sendFile(imagePath, { root: __dirname });
-
   if (fs.existsSync(resizedImagePath)) {
     res.sendFile(resizedImagePath);
   } else if (!fs.existsSync(fullImagePath)) {
     res.send("Image Not Found");
   } else {
-    sharp(fullImagePath)
-      .resize(200, 200)
-      .jpeg()
-      .toFile(resizedImagePath)
+    ImageService.resizeImage(fullImagePath, resizedImagePath)
       .then((data) => {
-          res.sendFile(resizedImagePath);
+        res.sendFile(resizedImagePath);
+      })
+      .catch((err) => {
+        res.send(err);
       });
   }
 });
