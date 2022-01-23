@@ -15,10 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const index_1 = __importDefault(require("../index"));
 const request = (0, supertest_1.default)(index_1.default);
-describe('Test endpoint response', () => {
-    it('gets the home endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get('/image');
+describe('Test image endpoint', () => {
+    it('Test endpoint respond with 200', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/api?name=fjord.jpg');
         expect(response.status).toBe(200);
-        // done();
+    }));
+    it('Test endpoint respond with 404', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/api?name=zzzzzzzzz.jpg');
+        expect(response.status).toBe(404);
     }));
 });

@@ -7,16 +7,20 @@ const routes = express.Router();
 const fullImagesDir = `${__dirname}/fullImages/`;
 const resizedImagesDir = `${__dirname}/resizedImages/`;
 
-routes.get('/image', (req, res) => {
+routes.get('/api', (req, res) => {
   const imageName = `${req.query.name}`;
   const fullImagePath = `${fullImagesDir}${imageName}`;
   const resizedImagePath = `${resizedImagesDir}${imageName}`;
 
   if (fs.existsSync(resizedImagePath)) {
-    res.sendFile(resizedImagePath);
+    res.status(200).sendFile(resizedImagePath);
   } else if (!fs.existsSync(fullImagePath)) {
-    res.send('Image Not Found');
+
+    res.status(404).send(fullImagePath);
   } else {
+    if (!fs.existsSync(resizedImagePath)) {
+      fs.mkdirSync(resizedImagePath,{recursive: true});
+    }
     ImageService.resizeImage(fullImagePath, resizedImagePath)
       .then(() => {
         res.sendFile(resizedImagePath);
