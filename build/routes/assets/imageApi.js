@@ -21,7 +21,7 @@ routes.get('/image', (req, res) => {
     }
     else {
         ImageService_1.default.resizeImage(fullImagePath, resizedImagePath)
-            .then((_data) => {
+            .then(() => {
             res.sendFile(resizedImagePath);
         })
             .catch((err) => {
