@@ -18,7 +18,7 @@ routes.get('/image', (req, res) => {
     res.send('Image Not Found');
   } else {
     ImageService.resizeImage(fullImagePath, resizedImagePath)
-      .then((_data) => {
+      .then(() => {
         res.sendFile(resizedImagePath);
       })
       .catch((err) => {
