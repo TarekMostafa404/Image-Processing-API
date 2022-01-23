@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const imageApi_1 = __importDefault(require("./routes/assets/imageApi"));
+const imageApi_1 = __importDefault(require("./api/assets/imageApi"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use('/', imageApi_1.default);
