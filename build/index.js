@@ -11,3 +11,4 @@ app.use('/', images_1.default);
 app.listen(port, () => {
     console.log(`server is running at http://localhost:${port}/image`);
 });
+exports.default = app;

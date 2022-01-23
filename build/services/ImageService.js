@@ -7,7 +7,7 @@ const sharp_1 = __importDefault(require("sharp"));
 class ImageService {
     static resizeImage(fullImagePath, resizedImagePath) {
         return (0, sharp_1.default)(fullImagePath)
-            .resize(200, 200)
+            .resize(400, 400)
             .jpeg()
             .toFile(resizedImagePath);
     }

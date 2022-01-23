@@ -1,8 +1,12 @@
-import express from '..';
-import routes from '../routes/images';
+import supertest from 'supertest';
+import app from '../index';
 
-const app = express();
+const request = supertest(app);
 
-it('go to main url',()=>{
-  expect(app.use('/', routes).get('/'));
+describe('Test endpoint response', () => {
+  it('gets the home endpoint', async () => {
+    const response = await request.get('/image');
+    expect(response.status).toBe(200);
+    // done();
+  });
 });
