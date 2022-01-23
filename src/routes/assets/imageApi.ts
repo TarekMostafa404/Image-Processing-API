@@ -1,11 +1,11 @@
 import express from 'express';
 import fs from 'fs';
-import ImageService from '../services/ImageService';
+import ImageService from '../../services/ImageService';
 
 const routes = express.Router();
 
-const fullImagesDir = `${__dirname}/images/`;
-const resizedImagesDir = `${__dirname}/images/resized/`;
+const fullImagesDir = `${__dirname}/fullImages/`;
+const resizedImagesDir = `${__dirname}/resizedImages/`;
 
 routes.get('/image', (req, res) => {
   const imageName = `${req.query.name}`;
