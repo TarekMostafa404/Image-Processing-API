@@ -8,22 +8,41 @@ const fullImagesDir = `${__dirname}/fullImages/`;
 const resizedImagesDir = `${__dirname}/resizedImages/`;
 
 routes.get('/api', (req, res) => {
+  const imageWidth = parseInt((req.query.width || '0').toString());
+  const imageHeight = parseInt((req.query.height || '0').toString());
   const imageName = `${req.query.name}`;
+
+  if (imageWidth === 0 || imageHeight === 0) {
+    res.status(400).send('invalid dimention values');
+    return;
+  }
   const fullImagePath = `${fullImagesDir}${imageName}`;
-  const resizedImagePath = `${resizedImagesDir}${imageName}`;
+  const resizedImagePath = `${resizedImagesDir}${imageWidth}_${imageHeight}_${imageName}`;
 
   if (fs.existsSync(resizedImagePath)) {
-    res.status(200).sendFile(resizedImagePath);
+    fs.readFile(resizedImagePath, (err, data) => {
+      res.type('image/jpg').send(data);
+      console.log(resizedImagePath);
+      console.log(err);
+    });
   } else if (!fs.existsSync(fullImagePath)) {
-
     res.status(404).send(fullImagePath);
   } else {
-    if (!fs.existsSync(resizedImagePath)) {
-      fs.mkdirSync(resizedImagePath,{recursive: true});
+    if (!fs.existsSync(resizedImagesDir)) {
+      fs.mkdirSync(resizedImagesDir, { recursive: true });
     }
-    ImageService.resizeImage(fullImagePath, resizedImagePath)
+    ImageService.resizeImage(
+      fullImagePath,
+      resizedImagePath,
+      imageWidth,
+      imageHeight
+    )
       .then(() => {
-        res.sendFile(resizedImagePath);
+        fs.readFile(resizedImagePath, (err, data) => {
+          res.type('image/jpg').send(data);
+          console.log(resizedImagePath);
+          console.log(err);
+        });
       })
       .catch((err) => {
         res.send(err);

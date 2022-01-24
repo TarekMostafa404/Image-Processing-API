@@ -3,10 +3,12 @@ import sharp from 'sharp';
 class ImageService {
   public static resizeImage(
     fullImagePath: string,
-    resizedImagePath: string
+    resizedImagePath: string,
+    width: number,
+    height: number
   ): Promise<sharp.OutputInfo> {
     return sharp(fullImagePath)
-      .resize(400, 400)
+      .resize(width, height)
       .jpeg()
       .toFile(resizedImagePath);
   }
