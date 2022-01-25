@@ -1,15 +1,20 @@
 import express from 'express';
+import { Request, Response } from 'express';
 import fs from 'fs';
 import ImageService from '../src/services/ImageService';
+import Utilities from '../src/services/utilities';
 
 const routes = express.Router();
 
 const fullImagesDir = `${__dirname}/fullImages/`;
 const resizedImagesDir = `${__dirname}/resizedImages/`;
 
-routes.get('/api', (req, res) => {
-  const imageWidth = parseInt((req.query.width || '0').toString());
-  const imageHeight = parseInt((req.query.height || '0').toString());
+routes.get('/api', async (req: Request, res: Response) => {
+  if (isNaN(Number(req.query.width)) || isNaN(Number(req.query.height))) {
+    res.status(400).send('invalid dimension values');
+  }
+  const imageWidth: number = parseInt((req.query.width || '0').toString());
+  const imageHeight: number = parseInt((req.query.height || '0').toString());
   const imageName = `${req.query.name}`;
 
   if (imageWidth === 0 || imageHeight === 0) {
@@ -19,16 +24,17 @@ routes.get('/api', (req, res) => {
   const fullImagePath = `${fullImagesDir}${imageName}`;
   const resizedImagePath = `${resizedImagesDir}${imageWidth}_${imageHeight}_${imageName}`;
 
-  if (fs.existsSync(resizedImagePath)) {
-    fs.readFile(resizedImagePath, (err, data) => {
-      res.type('image/jpg').send(data);
-      console.log(resizedImagePath);
-      console.log(err);
-    });
-  } else if (!fs.existsSync(fullImagePath)) {
-    res.status(404).send(fullImagePath);
+  if (await Utilities.fileExists(resizedImagePath)) {
+    fs.readFile(
+      resizedImagePath,
+      (err: NodeJS.ErrnoException | null, data: Buffer) => {
+        res.type('image/jpg').send(data);
+      }
+    );
+  } else if (!(await Utilities.fileExists(fullImagePath))) {
+    res.status(404).send('File Not Found!');
   } else {
-    if (!fs.existsSync(resizedImagesDir)) {
+    if (!(await Utilities.fileExists(resizedImagesDir))) {
       fs.mkdirSync(resizedImagesDir, { recursive: true });
     }
     ImageService.resizeImage(

@@ -9,7 +9,8 @@
     "jasmine": "jasmine",
     "test": "npm run build && npm run jasmine --captureExceptions",
     "lint": "eslint \"**/*.{ts,tsx}\"",
-    "prettier": "prettier --write **/*.{js,ts}"
+    "lint-fix": "eslint --fix \"**/*.{ts,tsx}\"",
+    "prettier": "prettier --write **/*.{ts,tsx}"
   },
   "repository": {
     "type": "git",
