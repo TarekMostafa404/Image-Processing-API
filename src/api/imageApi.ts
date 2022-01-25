@@ -1,13 +1,13 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import fs from 'fs';
-import ImageService from '../src/services/ImageService';
-import Utilities from '../src/services/utilities';
+import ImageService from '../services/ImageService';
+import Utilities from '../services/utilities';
 
 const routes = express.Router();
 
-const fullImagesDir = `${__dirname}/fullImages/`;
-const resizedImagesDir = `${__dirname}/resizedImages/`;
+const fullImagesDir = `${__dirname}/../../assets/fullImages/`;
+const resizedImagesDir = `${__dirname}/../../assets/resizedImages/`;
 
 routes.get('/api', async (req: Request, res: Response) => {
   if (isNaN(Number(req.query.width)) || isNaN(Number(req.query.height))) {

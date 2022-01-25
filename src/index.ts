@@ -1,5 +1,5 @@
 import express from 'express';
-import routes from '../assets/imageApi';
+import routes from './api/imageApi';
 
 const app = express();
 const port = 3000;
