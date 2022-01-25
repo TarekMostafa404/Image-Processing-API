@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs';
-import ImageService from '../../services/ImageService';
+import ImageService from '../src/services/ImageService';
 
 const routes = express.Router();
 
