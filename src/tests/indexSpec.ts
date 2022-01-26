@@ -1,4 +1,3 @@
-import exp from 'constants';
 import supertest from 'supertest';
 import app from '../index';
 import ImageService from '../services/ImageService';
