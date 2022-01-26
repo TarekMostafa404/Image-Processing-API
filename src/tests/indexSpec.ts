@@ -34,8 +34,21 @@ describe('Test image endpoint', () => {
   });
 });
 
-describe('check if the image processing function exists', () => {
-  it('check if the function exists', () => {
+describe('Test image processing working', () => {
+  it('Test if the function exists', () => {
     expect(ImageService.resizeImage).toBeDefined();
+  });
+
+  it('Test if the function works', async () => {
+    const width = 300;
+    const height = 300;
+
+    const result = await ImageService.resizeImage(
+      `${__dirname}/../../assets/fullImages/fjord.jpg`,
+      `${__dirname}/../../assets/resizedImages/${width}_${height}_fjord.jpg`,
+      width,
+      height
+    );
+    expect(result.width === width && result.height === height).toBe(true);
   });
 });
