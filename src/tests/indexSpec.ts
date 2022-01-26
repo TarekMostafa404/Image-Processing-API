@@ -1,5 +1,7 @@
+import exp from 'constants';
 import supertest from 'supertest';
 import app from '../index';
+import ImageService from '../services/ImageService';
 
 const request = supertest(app);
 
@@ -30,5 +32,11 @@ describe('Test image endpoint', () => {
       '/api?name=zzzzzzzzz.jpg&width=300&height=400'
     );
     expect(response.status).toBe(404);
+  });
+});
+
+describe('check if the image processing function exists', () => {
+  it('check if the function exists', () => {
+    expect(ImageService.resizeImage).toBeDefined();
   });
 });
